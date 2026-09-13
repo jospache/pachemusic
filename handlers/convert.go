@@ -31,7 +31,7 @@ type Response struct {
 
 func ConvertHandler(c *gin.Context) {
 	youtubeLink := c.Query("youtubelink")
-	format := c.DefaultQuery("format", "m4a")
+	format := c.DefaultQuery("format", "mp3")
 	taskID := c.Query("taskId")
 
 	if youtubeLink == "" {
@@ -77,6 +77,14 @@ func ConvertHandler(c *gin.Context) {
 		FullLink:    fmt.Sprintf("https://youtube.com/watch?v=%s", videoID),
 		Duracao:     duration,
 		PublicadoEm: formattedDate,
+	}
+
+	if rapidURL, err := services.RapidDownloadURL(youtubeLink); err != nil {
+		c.JSON(http.StatusBadGateway, Response{Error: true, Message: err.Error()})
+		return
+	} else if rapidURL != "" {
+		c.JSON(http.StatusOK, Response{Error: false, File: rapidURL, VideoResult: videoResult})
+		return
 	}
 
 	title := utils.SanitizeTitle(v.Snippet.Title)

@@ -154,7 +154,7 @@ function createResult(video, directLink) {
   info.textContent = "YouTube - " + (video.channel || "") + " - Duracao: " + (video.duracao || "--:--:--");
   actions.className = "result__actions";
   var downloadLink = directLink || video.full_link;
-  actions.appendChild(createDownload(video, "m4a", downloadLink, "MP3 Download"));
+  actions.appendChild(createDownload(video, "mp3", downloadLink, "MP3 Download"));
   result.className = "result";
   result.style.animationDelay = (video.animationDelay || 0) + "ms";
   result.appendChild(title);

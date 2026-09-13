@@ -105,6 +105,9 @@ Busca vídeos no YouTube e retorna os resultados em JSON.
 
 Converte o vídeo e retorna o caminho do arquivo gerado. O formato M4A baixa a faixa de áudio diretamente quando disponível, sem conversão para MP3.
 
+Para usar o provedor RapidAPI como conversor MP3, configure a variável secreta `RAPIDAPI_KEY`.
+Quando ela existe, o endpoint usa `youtube-mp310.p.rapidapi.com` e retorna o URL temporário fornecido pelo provedor.
+
 ### 🔹 `GET /download/:filename`
 
 Baixa um arquivo convertido.
