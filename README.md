@@ -120,6 +120,10 @@ docker run --rm -p 8080:8080 -e API_KEY_YOUTUBE=sua_chave \
 	-v "${PWD}/cookies.txt:/app/cookies.txt:ro" youtube-music-api
 ```
 
+Em plataformas como o Render, não publique o arquivo no GitHub. Exporte os cookies em formato Netscape,
+converta o conteúdo para Base64 e adicione o resultado como variável secreta `YOUTUBE_COOKIES_B64`.
+O backend cria o arquivo apenas dentro do container durante a conversão.
+
 ---
 
 ## 📜 Licença

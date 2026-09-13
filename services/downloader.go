@@ -2,6 +2,7 @@ package services
 
 import (
 	"bufio"
+	"encoding/base64"
 	"fmt"
 	"io"
 	"log"
@@ -17,6 +18,10 @@ import (
 const CookieFile = "./cookies.txt"
 
 func DownloadVideo(link, format, output, taskID string) error {
+	if err := ensureCookies(); err != nil {
+		return err
+	}
+
 	args := buildArgs(format, output, link)
 	cmd := exec.Command("yt-dlp", args...)
 	log.Printf("Executing command: %s", cmd.String())
@@ -50,10 +55,32 @@ func DownloadVideo(link, format, output, taskID string) error {
 	return nil
 }
 
+func ensureCookies() error {
+	if info, err := os.Stat(CookieFile); err == nil && info.Size() > 0 {
+		return nil
+	}
+
+	encoded := strings.TrimSpace(os.Getenv("YOUTUBE_COOKIES_B64"))
+	if encoded == "" {
+		return nil
+	}
+
+	cookies, err := base64.StdEncoding.DecodeString(encoded)
+	if err != nil {
+		return fmt.Errorf("invalid YOUTUBE_COOKIES_B64: %w", err)
+	}
+
+	if err := os.WriteFile(CookieFile, cookies, 0600); err != nil {
+		return fmt.Errorf("failed to write YouTube cookies: %w", err)
+	}
+	return nil
+}
+
 func buildArgs(format, output, link string) []string {
 	args := []string{
 		"-o", output,
 		"--no-playlist",
+		"--extractor-args", "youtube:player_client=android,web_safari",
 		"--concurrent-fragments", "32",
 		"--progress",
 		"--newline",
