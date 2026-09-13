@@ -4,52 +4,59 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
 	"os"
 	"strings"
 	"time"
 )
 
-const rapidAPIHost = "youtube-mp310.p.rapidapi.com"
+const rapidAPIHost = "youtube-mp36.p.rapidapi.com"
 
 type rapidDownloadResponse struct {
-	DownloadURL string `json:"downloadUrl"`
+	Link    string `json:"link"`
+	Message string `json:"msg"`
+	Status  string `json:"status"`
 }
 
-func RapidDownloadURL(videoLink string) (string, error) {
+func RapidDownloadURL(videoID string) (string, error) {
 	key := strings.TrimSpace(os.Getenv("RAPIDAPI_KEY"))
 	if key == "" {
 		return "", fmt.Errorf("RAPIDAPI_KEY não está configurada no servidor")
 	}
 
-	endpoint := "https://" + rapidAPIHost + "/download/mp3?url=" + url.QueryEscape(videoLink)
-	request, err := http.NewRequest(http.MethodGet, endpoint, nil)
-	if err != nil {
-		return "", fmt.Errorf("failed to create RapidAPI request: %w", err)
-	}
-	request.Header.Set("x-rapidapi-key", key)
-	request.Header.Set("x-rapidapi-host", rapidAPIHost)
-
-	client := &http.Client{Timeout: 45 * time.Second}
-	response, err := client.Do(request)
-	if err != nil {
-		return "", fmt.Errorf("RapidAPI request failed: %w", err)
-	}
-	defer response.Body.Close()
-
-	if response.StatusCode < http.StatusOK || response.StatusCode >= http.StatusMultipleChoices {
-		if response.StatusCode == http.StatusTooManyRequests {
-			return "", fmt.Errorf("limite da RapidAPI atingido: o plano gratuito permite 220 pedidos por dia; aguarde a renovação da quota ou altere o plano")
+	client := &http.Client{Timeout: 30 * time.Second}
+	for attempt := 0; attempt < 45; attempt++ {
+		endpoint := "https://" + rapidAPIHost + "/dl?id=" + videoID
+		request, err := http.NewRequest(http.MethodGet, endpoint, nil)
+		if err != nil {
+			return "", fmt.Errorf("failed to create RapidAPI request: %w", err)
 		}
-		return "", fmt.Errorf("RapidAPI returned HTTP %d", response.StatusCode)
-	}
+		request.Header.Set("x-rapidapi-key", key)
+		request.Header.Set("x-rapidapi-host", rapidAPIHost)
+		request.Header.Set("Content-Type", "application/json")
 
-	var payload rapidDownloadResponse
-	if err := json.NewDecoder(response.Body).Decode(&payload); err != nil {
-		return "", fmt.Errorf("invalid RapidAPI response: %w", err)
+		response, err := client.Do(request)
+		if err != nil {
+			return "", fmt.Errorf("RapidAPI request failed: %w", err)
+		}
+		var payload rapidDownloadResponse
+		decodeErr := json.NewDecoder(response.Body).Decode(&payload)
+		response.Body.Close()
+		if decodeErr != nil {
+			return "", fmt.Errorf("invalid RapidAPI response: %w", decodeErr)
+		}
+		if response.StatusCode == http.StatusTooManyRequests {
+			return "", fmt.Errorf("limite da RapidAPI atingido; verifique a quota do plano YouTube MP3")
+		}
+		if response.StatusCode < http.StatusOK || response.StatusCode >= http.StatusMultipleChoices {
+			return "", fmt.Errorf("RapidAPI returned HTTP %d: %s", response.StatusCode, payload.Message)
+		}
+		if payload.Status == "ok" && payload.Link != "" {
+			return payload.Link, nil
+		}
+		if payload.Status == "fail" {
+			return "", fmt.Errorf("RapidAPI conversion failed: %s", payload.Message)
+		}
+		time.Sleep(time.Second)
 	}
-	if payload.DownloadURL == "" {
-		return "", fmt.Errorf("RapidAPI did not return a download URL")
-	}
-	return payload.DownloadURL, nil
+	return "", fmt.Errorf("RapidAPI conversion timed out")
 }

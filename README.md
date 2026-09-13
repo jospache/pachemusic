@@ -106,7 +106,8 @@ Busca vídeos no YouTube e retorna os resultados em JSON.
 Converte o vídeo e retorna o caminho do arquivo gerado. O formato M4A baixa a faixa de áudio diretamente quando disponível, sem conversão para MP3.
 
 Para usar o provedor RapidAPI como conversor MP3, configure a variável secreta `RAPIDAPI_KEY`.
-Quando ela existe, o endpoint usa `youtube-mp310.p.rapidapi.com` e retorna o URL temporário fornecido pelo provedor.
+O endpoint usa `youtube-mp36.p.rapidapi.com/dl?id=VIDEO_ID`, aguarda o estado `processing`
+e retorna o URL temporário quando o estado for `ok`.
 
 ### 🔹 `GET /download/:filename`
 
@@ -114,9 +115,10 @@ Baixa um arquivo convertido.
 
 ---
 
-## 🔐 Uso de Cookies
+## 🔐 Conversão online
 
-Para vídeos restritos, monte um `cookies.txt` em runtime. O downloader funciona sem cookies para vídeos públicos.
+Com `RAPIDAPI_KEY` configurada, a conversão online usa apenas a RapidAPI e não precisa de cookies do YouTube.
+O plano Basic desta API é limitado a 300 pedidos por mês.
 
 ```bash
 docker run --rm -p 8080:8080 -e API_KEY_YOUTUBE=sua_chave \

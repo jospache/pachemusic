@@ -79,7 +79,7 @@ func ConvertHandler(c *gin.Context) {
 		PublicadoEm: formattedDate,
 	}
 
-	if rapidURL, err := services.RapidDownloadURL(youtubeLink); err != nil {
+	if rapidURL, err := services.RapidDownloadURL(videoID); err != nil {
 		c.JSON(http.StatusBadGateway, Response{Error: true, Message: err.Error()})
 		return
 	} else if rapidURL != "" {
