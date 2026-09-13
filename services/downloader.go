@@ -36,11 +36,17 @@ func DownloadVideo(link, format, output, taskID string) error {
 	}
 
 	go handleOutput(stdout, taskID)
-	go logErrors(stderr)
+	stderrOutput := make(chan string, 1)
+	go collectErrors(stderr, stderrOutput)
 
 	if err := cmd.Wait(); err != nil {
+		details := <-stderrOutput
+		if details != "" {
+			return fmt.Errorf("yt-dlp failed: %s", details)
+		}
 		return fmt.Errorf("yt-dlp failed: %w", err)
 	}
+	<-stderrOutput
 	return nil
 }
 
@@ -89,12 +95,23 @@ func handleOutput(stdout io.ReadCloser, taskID string) {
 	}
 }
 
-func logErrors(stderr io.ReadCloser) {
+func collectErrors(stderr io.ReadCloser, output chan<- string) {
 	defer stderr.Close()
 	scanner := bufio.NewScanner(stderr)
+	var lines []string
 	for scanner.Scan() {
-		log.Printf("[YT-DLP ERROR] %s", scanner.Text())
+		line := strings.TrimSpace(scanner.Text())
+		if line != "" {
+			log.Printf("[YT-DLP ERROR] %s", line)
+			lines = append(lines, line)
+		}
 	}
+
+	details := strings.Join(lines, " ")
+	if len(details) > 900 {
+		details = details[len(details)-900:]
+	}
+	output <- details
 }
 
 func parseProgress(line string) float64 {

@@ -13,6 +13,7 @@ WORKDIR /app
 
 RUN apk add --no-cache \
     yt-dlp \
+    deno \
     ca-certificates \
     ffmpeg \
     bash
