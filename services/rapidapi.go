@@ -19,7 +19,7 @@ type rapidDownloadResponse struct {
 func RapidDownloadURL(videoLink string) (string, error) {
 	key := strings.TrimSpace(os.Getenv("RAPIDAPI_KEY"))
 	if key == "" {
-		return "", nil
+		return "", fmt.Errorf("RAPIDAPI_KEY não está configurada no servidor")
 	}
 
 	endpoint := "https://" + rapidAPIHost + "/download/mp3?url=" + url.QueryEscape(videoLink)
