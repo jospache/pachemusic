@@ -3,9 +3,6 @@ package handlers
 import (
 	"context"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"google.golang.org/api/option"
-	"google.golang.org/api/youtube/v3"
 	"log"
 	"net/http"
 	"os"
@@ -14,6 +11,10 @@ import (
 	"time"
 	"youtube_converter/services"
 	"youtube_converter/utils"
+
+	"github.com/gin-gonic/gin"
+	"google.golang.org/api/option"
+	"google.golang.org/api/youtube/v3"
 )
 
 var config = services.Config{
@@ -39,7 +40,7 @@ func ConvertHandler(c *gin.Context) {
 	}
 
 	if !utils.IsValidFormat(format) {
-		c.JSON(http.StatusBadRequest, Response{Error: true, Message: "Formato inválido: apenas mp3 ou mp4 são suportados"})
+		c.JSON(http.StatusBadRequest, Response{Error: true, Message: "Formato inválido: apenas mp3, m4a ou mp4 são suportados"})
 		return
 	}
 	format = strings.ToLower(format)

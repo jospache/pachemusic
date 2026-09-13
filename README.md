@@ -7,7 +7,7 @@ Aplicação web desenvolvida em **Go (Golang)** com frontend servido pelo própr
 ## 🚀 Funcionalidades
 
 - Buscar vídeos do YouTube por URL ou nome.
-- Baixar vídeos em formato **MP3 (áudio)** ou **MP4 (vídeo)**.
+- Baixar áudio em formato **MP3** ou **M4A**, ou vídeo em formato **MP4**.
 - Utilizar cookies para downloads de vídeos privados ou restritos.
 - Servir o site e os downloads via **API REST**.
 - Configuração simplificada com **Docker**.
@@ -101,9 +101,9 @@ docker run --rm -p 8080:8080 -e API_KEY_YOUTUBE=sua_chave youtube-music-api
 
 Busca vídeos no YouTube e retorna os resultados em JSON.
 
-### 🔹 `GET /convert?youtubelink=YOUTUBE_URL&format=mp3|mp4`
+### 🔹 `GET /convert?youtubelink=YOUTUBE_URL&format=mp3|m4a|mp4`
 
-Converte o vídeo e retorna o caminho do arquivo gerado.
+Converte o vídeo e retorna o caminho do arquivo gerado. O formato M4A baixa a faixa de áudio diretamente quando disponível, sem conversão para MP3.
 
 ### 🔹 `GET /download/:filename`
 

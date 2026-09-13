@@ -92,6 +92,8 @@ func buildArgs(format, output, link string) []string {
 
 	if format == "mp3" {
 		args = append(args, "--extract-audio", "--audio-format", "mp3", "--audio-quality", "0")
+	} else if format == "m4a" {
+		args = append(args, "--format", "bestaudio[ext=m4a]/bestaudio")
 	} else {
 		args = append(args, "--format", fmt.Sprintf("bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"))
 	}

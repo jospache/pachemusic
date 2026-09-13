@@ -155,6 +155,7 @@ function createResult(video, directLink) {
   actions.className = "result__actions";
   var downloadLink = directLink || video.full_link;
   actions.appendChild(createDownload(video, "mp3", downloadLink));
+  actions.appendChild(createDownload(video, "m4a", downloadLink));
   actions.appendChild(createDownload(video, "mp4", downloadLink));
   result.className = "result";
   result.style.animationDelay = (video.animationDelay || 0) + "ms";

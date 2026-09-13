@@ -5,7 +5,7 @@ import (
 	"regexp"
 )
 
-const SupportedFormats = "mp3,mp4"
+const SupportedFormats = "mp3,m4a,mp4"
 
 func ExtractVideoID(link string) (string, error) {
 	re := regexp.MustCompile(`(?:v=|v/|youtu\.be/)([^&\n]+)`)
