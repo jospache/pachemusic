@@ -64,6 +64,18 @@ function setProcessing(button, message) {
   button.innerHTML = '<span class="button-spinner" aria-hidden="true"></span><span>' + message + '</span>';
 }
 
+function createTaskId() {
+  if (window.crypto && window.crypto.randomUUID) {
+    return window.crypto.randomUUID();
+  }
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function setConversionProgress(button, percentage) {
+  var value = Math.max(0, Math.min(100, Math.round(percentage)));
+  button.innerHTML = '<span class="button-spinner" aria-hidden="true"></span><span>A processar... ' + value + '%</span>';
+}
+
 function setSearchReady(button) {
   button.classList.remove("is-processing");
   button.removeAttribute("aria-busy");
@@ -72,10 +84,23 @@ function setSearchReady(button) {
 }
 
 function convert(button) {
+  var taskId = createTaskId();
   var params = new URLSearchParams({
     youtubelink: button.getAttribute("data-link"),
-    format: button.getAttribute("data-format")
+    format: button.getAttribute("data-format"),
+    taskId: taskId
   });
+
+  var socketProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  var socket = new WebSocket(socketProtocol + "//" + window.location.host + "/ws?taskId=" + encodeURIComponent(taskId));
+  socket.onmessage = function (event) {
+    try {
+      var progress = JSON.parse(event.data);
+      if (progress.task_id === taskId) setConversionProgress(button, progress.percentage);
+    } catch (error) {
+      return;
+    }
+  };
 
   fetch("/convert?" + params.toString())
     .then(function (response) {
@@ -93,8 +118,10 @@ function convert(button) {
       button.removeAttribute("data-link");
       button.removeAttribute("aria-busy");
       button.onclick = null;
+      socket.close();
     })
     .catch(function (conversionError) {
+      socket.close();
       setButtonError(button, conversionError.message);
     });
 }
