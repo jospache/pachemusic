@@ -126,10 +126,10 @@ function convert(button) {
     });
 }
 
-function createDownload(video, format, link) {
+function createDownload(video, format, link, label) {
   var button = document.createElement("a");
   button.href = "#";
-  button.textContent = format.toUpperCase() + " Download";
+  button.textContent = label || format.toUpperCase() + " Download";
   button.setAttribute("data-format", format);
   button.setAttribute("data-link", link);
   button.onclick = function (event) {
@@ -154,9 +154,7 @@ function createResult(video, directLink) {
   info.textContent = "YouTube - " + (video.channel || "") + " - Duracao: " + (video.duracao || "--:--:--");
   actions.className = "result__actions";
   var downloadLink = directLink || video.full_link;
-  actions.appendChild(createDownload(video, "mp3", downloadLink));
-  actions.appendChild(createDownload(video, "m4a", downloadLink));
-  actions.appendChild(createDownload(video, "mp4", downloadLink));
+  actions.appendChild(createDownload(video, "m4a", downloadLink, "MP3 Download"));
   result.className = "result";
   result.style.animationDelay = (video.animationDelay || 0) + "ms";
   result.appendChild(title);

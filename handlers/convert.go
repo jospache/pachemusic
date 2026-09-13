@@ -31,7 +31,7 @@ type Response struct {
 
 func ConvertHandler(c *gin.Context) {
 	youtubeLink := c.Query("youtubelink")
-	format := c.DefaultQuery("format", "mp3")
+	format := c.DefaultQuery("format", "m4a")
 	taskID := c.Query("taskId")
 
 	if youtubeLink == "" {

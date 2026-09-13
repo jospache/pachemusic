@@ -56,10 +56,6 @@ func DownloadVideo(link, format, output, taskID string) error {
 }
 
 func ensureCookies() error {
-	if info, err := os.Stat(CookieFile); err == nil && info.Size() > 0 {
-		return nil
-	}
-
 	encoded := strings.TrimSpace(os.Getenv("YOUTUBE_COOKIES_B64"))
 	if encoded == "" {
 		return nil
@@ -67,7 +63,7 @@ func ensureCookies() error {
 
 	cookies, err := base64.StdEncoding.DecodeString(encoded)
 	if err != nil {
-		return fmt.Errorf("invalid YOUTUBE_COOKIES_B64: %w", err)
+		return fmt.Errorf("invalid YOUTUBE_COOKIES_B64: verifique se colou o Base64 completo")
 	}
 
 	if err := os.WriteFile(CookieFile, cookies, 0600); err != nil {
