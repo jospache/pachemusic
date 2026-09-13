@@ -38,6 +38,9 @@ func RapidDownloadURL(videoLink string) (string, error) {
 	defer response.Body.Close()
 
 	if response.StatusCode < http.StatusOK || response.StatusCode >= http.StatusMultipleChoices {
+		if response.StatusCode == http.StatusTooManyRequests {
+			return "", fmt.Errorf("limite da RapidAPI atingido: o plano gratuito permite 220 pedidos por dia; aguarde a renovação da quota ou altere o plano")
+		}
 		return "", fmt.Errorf("RapidAPI returned HTTP %d", response.StatusCode)
 	}
 
