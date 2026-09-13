@@ -30,6 +30,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.File("./site/index.html")
 	})
+	router.StaticFile("/index.html", "./site/index.html")
 	router.StaticFile("/script.js", "./site/script.js")
 	router.StaticFile("/style.css", "./site/style.css")
 	router.StaticFile("/privacidade.html", "./site/privacidade.html")
