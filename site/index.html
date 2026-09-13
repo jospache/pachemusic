@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Busque vídeos do YouTube e converta-os para MP3 ou MP4." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:site_name" content="Pachemusic" />
+    <meta property="og:title" content="Pachemusic" />
+    <meta property="og:description" content="Pesquisa e conversão de vídeos para MP3 ou MP4." />
+    <meta property="og:type" content="website" />
+    <title>Pachemusic</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="header container" aria-label="Navegação principal">
+      <a class="brand" href="/" aria-label="Página inicial">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>Pachemusic</span>
+      </a>
+      <a class="header-link" href="#como-usar">Como funciona</a>
+    </header>
+
+    <div class="logo container">
+      <div class="logo-kicker">PACHEMUSIC · CONVERSOR RÁPIDO</div>
+      <strong class="logo-text">Transforma vídeos<br /><em>em movimento.</em></strong>
+      <p class="logo-subtitle">Pesquisa, escolhe o formato e guarda o teu áudio ou vídeo.</p>
+    </div>
+
+    <main>
+      <form class="search-form" autocomplete="off" method="post">
+        <div class="form-row">
+          <div class="form-field">
+            <input
+              id="query"
+              class="search-input"
+              type="text"
+              name="query"
+              aria-label="Pesquisar no YouTube"
+              placeholder="Pesquisar no YouTube ou cole um link"
+              inputmode="search"
+              autocorrect="off"
+              autofocus
+              required
+            />
+          </div>
+          <div class="form-action">
+            <button class="search-button" type="submit">
+              <span class="button-label">Procurar</span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="search-terms">
+        Use o serviço somente para conteúdo que você tem autorização para baixar.
+      </div>
+
+      <section id="como-usar" class="text" aria-labelledby="titulo-principal">
+        <h1 id="titulo-principal">Conversor de vídeos do YouTube</h1>
+
+        <p>
+          Pesquise vídeos do YouTube ou cole um link diretamente no campo acima. Escolha MP3 ou MP4
+          para iniciar a conversão, sem cadastro ou instalação de aplicativo.
+        </p>
+
+        <p class="section-label">Como funciona</p>
+
+        <ol>
+          <li>
+            Insira uma consulta no campo acima. Sugestões podem aparecer para ajudar a encontrar o vídeo.
+            Você também pode colar um link do YouTube diretamente no campo de pesquisa.
+          </li>
+          <li>
+            Os resultados correspondentes aparecerão com opções para conversão em MP3 ou MP4.
+          </li>
+          <li>
+            A conversão é feita no servidor e pode levar alguns instantes, dependendo da duração do vídeo.
+          </li>
+          <li>
+            Escolha o formato desejado. Quando a conversão terminar, clique em “Download” para salvar o arquivo.
+          </li>
+        </ol>
+
+        <p class="text-note">Feito para ser simples, rápido e sem distrações.</p>
+      </section>
+    </main>
+
+    <footer class="footer container">
+      <span>Use apenas conteúdo que você tem autorização para baixar.</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
