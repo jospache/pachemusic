@@ -292,26 +292,6 @@ button {
   text-align: center;
 }
 
-.consent-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  margin: 12px 10px 4px;
-  color: var(--muted);
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  line-height: 1.4;
-  cursor: pointer;
-}
-
-.consent-row input {
-  width: 16px;
-  height: 16px;
-  flex: 0 0 auto;
-  margin: 0;
-  accent-color: var(--ink);
-}
-
 .search-terms a {
   color: var(--text-color);
 }

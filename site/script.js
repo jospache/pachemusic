@@ -243,13 +243,6 @@ document.querySelector("form").addEventListener("submit", function (event) {
   event.preventDefault();
   closeSuggestions();
   var query = document.getElementById("query").value.trim();
-  var authorization = document.getElementById("authorized-content");
-  if (!authorization.checked) {
-    authorization.setCustomValidity("Confirme que tem autorização para baixar este conteúdo.");
-    authorization.reportValidity();
-    return;
-  }
-  authorization.setCustomValidity("");
   if (query) {
     var searchButton = document.querySelector(".search-button");
     searchButton.disabled = true;
