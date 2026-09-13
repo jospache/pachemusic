@@ -292,6 +292,26 @@ button {
   text-align: center;
 }
 
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 12px 10px 4px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.consent-row input {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
 .search-terms a {
   color: var(--text-color);
 }
@@ -344,6 +364,69 @@ button {
   color: var(--muted);
   font-family: Arial, sans-serif;
   font-size: 14px;
+}
+
+.faq-list {
+  margin-top: 18px;
+  font-family: Arial, sans-serif;
+}
+
+.faq-list details {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.faq-list details:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-list summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.faq-list p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.legal-page main {
+  max-width: 700px;
+  margin: 72px auto 0;
+  padding: 0 24px;
+}
+
+.legal-page h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.legal-page h2 {
+  margin: 34px 0 0;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.legal-page p,
+.legal-page li {
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.legal-page ul {
+  padding-left: 24px;
+}
+
+.legal-page a {
+  color: var(--coral);
+  text-decoration: underline;
+}
+
+.legal-page .footer {
+  margin-top: 72px;
 }
 
 .results {
@@ -472,7 +555,8 @@ button {
 
   .search-form,
   .text,
-  .footer {
+  .footer,
+  .legal-page main {
     margin-left: 4%;
     margin-right: 4%;
   }
@@ -492,6 +576,10 @@ button {
   .search-button {
     padding: 0 14px;
     font-size: 13px;
+  }
+
+  .legal-page h1 {
+    font-size: 36px;
   }
 
   .results {

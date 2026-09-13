@@ -2,13 +2,13 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Busque vídeos do YouTube e converta-os para MP3 ou MP4." />
+    <meta name="description" content="Converta conteúdos autorizados em MP3 ou MP4 de forma simples e rápida." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:site_name" content="Pachemusic" />
     <meta property="og:title" content="Pachemusic" />
-    <meta property="og:description" content="Pesquisa e conversão de vídeos para MP3 ou MP4." />
+    <meta property="og:description" content="Pesquise e converta conteúdos autorizados para MP3 ou MP4." />
     <meta property="og:type" content="website" />
-    <title>Pachemusic</title>
+    <title>Pachemusic | Conversor de áudio e vídeo</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -22,9 +22,9 @@
     </header>
 
     <div class="logo container">
-      <div class="logo-kicker">PACHEMUSIC · BAIXE MUISCA DE FORMA</div>
+      <div class="logo-kicker">PACHEMUSIC · CONVERSÃO SIMPLES</div>
       <strong class="logo-text">Transforma vídeos<br /><em>em momentos.</em></strong>
-      <p class="logo-subtitle">Pesquisa, escolhe o formato e guardE o teu áudio .</p>
+      <p class="logo-subtitle">Pesquise, escolha o formato e baixe o seu áudio ou vídeo.</p>
     </div>
 
     <main>
@@ -50,40 +50,73 @@
             </button>
           </div>
         </div>
+        <label class="consent-row" for="authorized-content">
+          <input id="authorized-content" type="checkbox" required />
+          <span>Confirmo que tenho autorização para baixar e converter este conteúdo.</span>
+        </label>
       </form>
 
+      <p class="search-terms">
+        Use o Pachemusic somente para conteúdos que você criou, possui ou tem autorização para baixar.
+        Respeite os direitos autorais e os termos de uso da plataforma de origem.
+      </p>
+
       <section id="como-usar" class="text" aria-labelledby="titulo-principal">
-        <h1 id="titulo-principal">baixador de músicas online</h1>
+        <h1 id="titulo-principal">Conversor de músicas e vídeos online</h1>
 
         <p>
-          Pesquise vídeos do YouTube ou cole um link diretamente no campo acima. Escolha MP3 ou MP4
-          para iniciar a conversão, sem cadastro ou instalação de aplicativo.
+          Pesquise vídeos ou cole um link diretamente no campo acima. Escolha MP3 ou MP4 para iniciar
+          a conversão, sem cadastro ou instalação de aplicativo.
         </p>
 
         <p class="section-label">Como funciona</p>
 
         <ol>
           <li>
-            Insira uma consulta no campo acima. Sugestões podem aparecer para ajudar a encontrar o vídeo.
-            Você também pode colar um link do YouTube diretamente no campo de pesquisa.
+            Insira uma consulta no campo acima. Sugestões podem ajudar a encontrar o conteúdo autorizado.
+            Você também pode colar um link diretamente no campo de pesquisa.
           </li>
           <li>
-            Os resultados correspondentes aparecerão com opções para conversão em MP3 ou MP4.
+            Os resultados correspondentes aparecerão com opções de conversão para MP3 ou MP4.
           </li>
           <li>
-            A conversão é feita no servidor e pode levar alguns instantes, dependendo da duração do vídeo.
+            A conversão é feita no servidor e pode levar alguns instantes, dependendo da duração do conteúdo.
           </li>
           <li>
             Escolha o formato desejado. Quando a conversão terminar, clique em “Download” para salvar o arquivo.
           </li>
         </ol>
 
-        <p class="text-note">Feito para ser simples, rápido e sem distrações.</p>
+        <p class="text-note">Feito para ser simples, rápido e responsável.</p>
+
+        <p class="section-label">Perguntas frequentes</p>
+
+        <div class="faq-list">
+          <details>
+            <summary>Que conteúdos posso converter?</summary>
+            <p>Somente conteúdos que você criou, possui ou tem autorização expressa para baixar e converter.</p>
+          </details>
+          <details>
+            <summary>Posso baixar qualquer música encontrada?</summary>
+            <p>Não. Encontrar um conteúdo online não significa ter autorização para copiá-lo ou distribuí-lo.</p>
+          </details>
+          <details>
+            <summary>O Pachemusic guarda os meus ficheiros?</summary>
+            <p>Os ficheiros podem ficar temporariamente disponíveis para concluir o download e devem ser removidos depois do processamento.</p>
+          </details>
+        </div>
       </section>
     </main>
 
     <footer class="footer container">
-      <span>pachemusic. todos os direitos reservados 2026</span>
+      <span>Pachemusic · Use somente conteúdos autorizados · 2026</span>
+      <nav class="footer-links" aria-label="Informações legais">
+        <a href="privacidade.html">Privacidade</a>
+        <a href="termos.html">Termos de uso</a>
+        <a href="cookies.html">Cookies</a>
+        <a href="copyright.html">Direitos autorais</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
     </footer>
 
     <script src="script.js"></script>
